@@ -84,8 +84,8 @@
 "var"               return 'VAR';
 "function"          return 'FUNCTION';
 
-[0-9]+("."[0-9]+)?\b    				return 'DECIMAL';
-[0-9]+\b                				return 'INTEGER';
+(([0-9]+"."[0-9]*)|("."[0-9]+))   		return 'DECIMAL';
+[0-9]+                 				    return 'INTEGER';
 ((\").*?(\"))|((\').*?(\'))				return 'STRING';
 [a-zA-Z_][a-aA-Z_0-9]*					return	'NAME';
 

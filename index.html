@@ -10,11 +10,10 @@
                         <textarea id="mainText" name="mainText" rows="30" cols="100"></textarea> 
                         <br/><br/>
                         <input type="file" name="inputfile" id="inputfile"> 
-                        <input type="button" value="Traducir" onclick=""/>
                         <input type="button" value="Analizar" onclick="analize();"/> <br/><br>
                         <textarea id="console" name="console" rows="15" cols="100">>></textarea>
                         <br/><br/>
-                        <input type="button" value="Limpiar" onclick="clearConsole()"/>
+                        <input type="button" value="Limpiar" onclick="javascript:clearConsole();"/>
                     </div>
                 </td>
             </tr>
@@ -48,7 +47,10 @@
             
             if(result != null)
             {
-                document.getElementById('console').innerHTML = 'retorne valor';
+                document.getElementById("console").innerHTML = "retorne valor";
+            }else
+            {
+                document.getElementById("console").innerHTML = "no retorne valor";
             }
         }
 
@@ -59,7 +61,7 @@
 
         function clearConsole()
         {
-            document.getElementById('console').innerHTML = ' ';
+            document.getElementById('console').innerHTML = "";
         }
 
         function loadErrors()
