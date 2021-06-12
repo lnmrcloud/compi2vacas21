@@ -70,11 +70,6 @@ BSL                                 "\\".
 %%
 
 
-
-
-
-
-
 /* Definición de la gramática */
 START : XML_INI EOF         { $$ = $1; return $$; }
 ;
@@ -125,7 +120,3 @@ ATRI : etiqueta igual string            {$$ = new Atributo($1, $3, @1.first_line
 OBJS : OBJS OBJ                         { $1.push($2); $$ = $1;}
         |OBJ                            { $$ = [$1];}
 ;
-
-
-
-

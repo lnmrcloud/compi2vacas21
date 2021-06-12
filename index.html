@@ -1,92 +1,93 @@
 <html>
-    <head>
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-        <table>
-            <tr>
-                <td>
-                    <div id="ide">
-                        <textarea id="mainText" name="mainText" rows="30" cols="100"></textarea> 
-                        <br/><br/>
-                        <input type="file" name="inputfile" id="inputfile"> 
-                        <input type="button" value="Analizar" onclick="analize();"/> <br/><br>
-                        <textarea id="console" name="console" rows="15" cols="100">>></textarea>
-                        <br/><br/>
-                        <input type="button" value="Limpiar" onclick="javascript:clearConsole();"/>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </body>
+<head>
+    <link rel="stylesheet" href="styles.css">
+</head>
 
-    <!-- 
-    <script src="analizador.js"></script>
+<title>
+    TytusX Grupo 10
+</title>
 
-    -->
+<h1 class="Titulo"> TytusX Grupo 10 </h1>
+<h3 class="subtitulo"> XPATH </h3>
 
-    <script src="Gramatica\gramatica.js"></script>
-    <script src="dist/Expresiones/Objeto.js"></script>
-    <script src="dist/Expresiones/Atributo.js"></script>
+<body>
+    <table>
+        <tr>
+            <td>
+                <!-- AREA DE TEXTO PARA CONSULTA -->
+                <div id="ide2">
+                    <textarea id="txtXpath" class="txtarea" name="txtXpath" rows="5" cols="100"></textarea>
+                </div> 
+            </td>
+        </tr>
+    </table>
+    <h3 class="subtitulo">XML</h3>
+    <table>
+        <tr>
+            <td>
+                <!-- AREA DE TEXTO PARA XML -->
+                <div id="ide">
+                    <textarea id="txtXML" class="txtarea" name="txtXML" rows="30" cols="100"></textarea>
+                    <br /><br />
+                    <input type="file" name="inputfile" id="inputfile">
+                    <input type="button" class="button" value="Analizar" onclick="analizar_xml();" /> <br /><br>
 
-    <script type="text/javascript"> 
-        document.getElementById('inputfile') 
-            .addEventListener('change', function() { 
-                var fr=new FileReader(); 
-                fr.onload=function(){ 
-                    document.getElementById('mainText') 
-                            .textContent=fr.result; 
-                }     
-                fr.readAsText(this.files[0]); 
-        }) 
-    </script> 
+                </div>
+            </td>
+        </tr>
+    </table>
 
-    <script type="text/javascript">
-        function analize()
-        {
+    <h3 class="subtitulo"> RESULTADO </h3>
+    <table>
+        <tr>
+            <td>
+                <!-- AREA DE TEXTO PARA RESULTADO -->
+                <div id="ide3">
+                    <textarea id="console"  class="txtarea" name="console" rows="20" cols="100">>></textarea>
+                    <br /><br />
+                    <input type="button" class="button" value="Limpiar" onclick="javascript:clearConsole();" />
+                </div>  
+            </td>
+        </tr>
+    </table>
 
-            lexicalErrors = [];
-            syntaxErrors = [];
-            semanticErrors = [];
-            var toParse = document.getElementById("mainText").value;
-            var result = gramatica.parse(toParse);
-            
-            if(result != null)
-            {
-                document.getElementById("console").innerHTML = "retorne valor";
-            }else
-            {
-                document.getElementById("console").innerHTML = "no retorne valor";
+</body>
+
+<script src="Gramatica\gramatica.js"></script>
+<script src="dist/Expresiones/Objeto.js"></script>
+<script src="dist/Expresiones/Atributo.js"></script>
+
+<script type="text/javascript">
+    document.getElementById('inputfile')
+        .addEventListener('change', function () {
+            var fr = new FileReader();
+            fr.onload = function () {
+                document.getElementById('txtXML')
+                    .textContent = fr.result;
             }
+            fr.readAsText(this.files[0]);
+        })
+</script>
+
+<script type="text/javascript">
+    function analizar_xml() {
+
+        lexicalErrors = [];
+        syntaxErrors = [];
+        semanticErrors = [];
+        var toParse = document.getElementById("txtXML").value;
+        var result = gramatica.parse(toParse);
+
+        if (result != null) {
+            document.getElementById("console").innerHTML = "retorne valor";
+        } else {
+            document.getElementById("console").innerHTML = "no retorne valor";
         }
+    }
 
-        function getURL()
-        {
-            document.getElementById("astLink").setAttribute("href",astAddress);
-        }
+    function clearConsole() {
+        document.getElementById('console').innerHTML = "";
+    }
+</script>
 
-        function clearConsole()
-        {
-            document.getElementById('console').innerHTML = "";
-        }
-
-        function loadErrors()
-        {
-            document.getElementById('lexicalErrors').innerHTML = '<tr><td>Descripción</td><td>Línea</td><td>Columna</td></tr>'
-            lexicalErrors.forEach(e => {
-                document.getElementById('lexicalErrors').innerHTML += '<tr><td>'+e.message+'</td><td>'+e.row+'</td><td>'+e.column+'</td></tr>';
-            });
-
-            document.getElementById('syntaxErrors').innerHTML = '<tr><td>Descripción</td><td>Línea</td><td>Columna</td></tr>'
-            syntaxErrors.forEach(e => {
-                document.getElementById('syntaxErrors').innerHTML += '<tr><td>'+e.message+'</td><td>'+e.row+'</td><td>'+e.column+'</td></tr>';
-            });
-
-            document.getElementById('semanticErrors').innerHTML = '<tr><td>Descripción</td><td>Línea</td><td>Columna</td></tr>'
-            semanticErrors.forEach(e => {
-                document.getElementById('semanticErrors').innerHTML += '<tr><td>'+e.message+'</td><td>'+e.row+'</td><td>'+e.column+'</td></tr>';
-            });
-        }
-    </script>
-    
 </html>
