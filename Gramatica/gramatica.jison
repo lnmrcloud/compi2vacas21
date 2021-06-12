@@ -58,8 +58,8 @@ BSL                                 "\\".
 
 //SECCION DE IMPORTS
 %{    
-    const {Objeto} = require("../Expresiones/Objeto");
-    const {Atributo} = require("../Expresiones/Atributo");
+    //const {Objeto} = require("../Expresiones/Objeto");
+    //const {Atributo} = require("../Expresiones/Atributo");
 %}
 
 // DEFINIMOS PRESEDENCIA DE OPERADORES

@@ -2,7 +2,7 @@ import { AST } from "./AST/AST";
 import { Entorno } from "./AST/Entorno";
 import { Instruccion } from "./Interfaces/Instruccion";
 
-const gramatica = require('./Gramatica/gramatica');
+const gramatica = require('../Gramatica/gramatica');
 
 function ejecutarCodigo(entrada:string){
     const objetos = gramatica.parse(entrada);

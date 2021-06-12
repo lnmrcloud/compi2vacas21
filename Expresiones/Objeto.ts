@@ -1,6 +1,4 @@
-import { Atributo } from "./Atributo";
-
-export class Objeto{
+class Objeto{
     identificador:string;
     texto:string;
     listaAtributos:Array<Atributo>;

@@ -1,4 +1,4 @@
-export class Atributo{
+class Atributo{
     identificador:string;
     valor:string;
     linea: number;
