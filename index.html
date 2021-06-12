@@ -20,8 +20,12 @@
         </table>
     </body>
 
-
+    <!-- 
     <script src="analizador.js"></script>
+
+    -->
+
+    <script scr="Gramatica\gramatica.js"></script>
 
     <script type="text/javascript"> 
         document.getElementById('inputfile') 
@@ -43,7 +47,7 @@
             syntaxErrors = [];
             semanticErrors = [];
             var toParse = document.getElementById("mainText").value;
-            var result = analizador.parse(toParse);
+            var result = gramatica.parse(toParse);
             
             if(result != null)
             {
