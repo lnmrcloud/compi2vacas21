@@ -57,6 +57,7 @@
 </body>
 
 <script src="Gramatica\gramatica.js"></script>
+<script src="GramaticaXPATH\gramaticaXpath.js"></script>
 <script src="dist/Expresiones/Objeto.js"></script>
 <script src="dist/Expresiones/Atributo.js"></script>
 
@@ -81,6 +82,23 @@
         var toParse = document.getElementById("txtXML").value;
         var result = gramatica.parse(toParse);
 
+        if (result != null) {
+            document.getElementById("console").innerHTML = "retorne valor";
+        } else {
+            document.getElementById("console").innerHTML = "no retorne valor";
+        }
+    }
+
+    function analizar_xml() {
+
+        lexicalErrors = [];
+        syntaxErrors = [];
+        semanticErrors = [];
+        var toParse = document.getElementById("txtXpath").value;
+        var result = gramaticaXpath.parse(toParse);
+
+        document.getElementById('console').innerHTML = "";
+        
         if (result != null) {
             document.getElementById("console").innerHTML = "retorne valor";
         } else {
