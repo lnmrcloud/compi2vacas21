@@ -84,12 +84,13 @@
 
         if (result != null) {
             document.getElementById("console").innerHTML = "retorne valor";
+            analizar_xpath()
         } else {
             document.getElementById("console").innerHTML = "no retorne valor";
         }
     }
 
-    function analizar_xml() {
+    function analizar_xpath() {
 
         lexicalErrors = [];
         syntaxErrors = [];
@@ -100,9 +101,9 @@
         document.getElementById('console').innerHTML = "";
         
         if (result != null) {
-            document.getElementById("console").innerHTML = "retorne valor";
+            document.getElementById("console").innerHTML = "retorne valor de xpath";
         } else {
-            document.getElementById("console").innerHTML = "no retorne valor";
+            document.getElementById("console").innerHTML = "no retorne valor de xpath";
         }
     }
 
