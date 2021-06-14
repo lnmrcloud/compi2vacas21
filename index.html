@@ -49,6 +49,7 @@
                     <textarea id="console"  class="txtarea" name="console" rows="20" cols="100">>></textarea>
                     <br /><br />
                     <input type="button" class="button" value="Limpiar" onclick="javascript:clearConsole();" />
+                    <a id="astLink">AST</a>
                 </div>  
             </td>
         </tr>
@@ -88,23 +89,45 @@
 </script>
 
 <script type="text/javascript">
+
     function analizar_xml() {
+        //graficar ast
+        
+        var astAddress = 'https://dreampuf.github.io/GraphvizOnline/#strict digraph{';
+        var dotData = '';
+        contadorNodo = 0;
 
         lexicalErrors = [];
         syntaxErrors = [];
         semanticErrors = [];
+
         var toParse = document.getElementById("txtXML").value;
         var result = gramatica.parse(toParse);
         result.CrearTabla();
-
+        dotData += result.GraficarAST(dotData);
 
         if (result != null) {
             document.getElementById("console").innerHTML = "retorne valor";
+
+
+
+            //graficar
+            astAddress += dotData;
+            astAddress += '}';
+
+            getURL(astAddress);
+
+
             analizar_xpath()
         } else {
             document.getElementById("console").innerHTML = "no retorne valor";
         }
     }
+
+    function getURL(astAddress)
+        {
+            document.getElementById("astLink").setAttribute("href",astAddress);
+        }
 
     function analizar_xpath() {
 
@@ -126,6 +149,7 @@
     function clearConsole() {
         document.getElementById('console').innerHTML = "";
     }
+
 </script>
 
 </html>

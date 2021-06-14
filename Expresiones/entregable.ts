@@ -6,6 +6,7 @@ class entregable{
     public tabla_simbolos:Tabla_simbolos=new Tabla_simbolos();
     //public arbol:{[id:number] : Objeto}={};
     //public lcondi:{[id:number] : Array<Atributo>}={};
+
     public CrearTabla()
     {     
         this.visitar(this.arbol,0);
@@ -20,10 +21,56 @@ class entregable{
         for (let atri of nodo.listaAtributos){
             var simbolo = new Simbolo(atri.identificador,Tipo.ATRIBUTO,atri.valor,atri.linea,atri.columna,id);
             this.tabla_simbolos.agregar(simbolo);
+
         }
         for (let obj of nodo.listaObjetos){
             this.visitar(obj,id);
         }
     }
+
+    public GraficarAST(dotData:string){
+        //dotData += "0[label=\"Tove\"];" ;
+
+        var padre:number =1;
+
+        dotData += padre+"[label=\""+ this.arbol.identificador  +"\";color=\"red\"];";
+        //enviar al primer padre de todo
+        dotData += this.recorrerArbolTabla(dotData,this.arbol,padre);
+    return dotData
 }
+
+    public recorrerArbolTabla(dotData:string,nodo:Objeto,padre:number){
+
+        // en el dotData agregaremos las cadenas
+        // en el nodo traemos al nodo padre
+        // en el padre traemos el id del padre de sus hijos
+        // en el hijo traemos el contador 
+
+        // es padre?
+        // si
+        if (nodo.listaObjetos!=null){
+            //unir padres con hijos
+            var hijoactual:number = 2;
+            for(let obj of nodo.listaObjetos){
+                dotData += padre+""+hijoactual+"[label=\""+ obj.identificador  +"\";color=\"blue\"];";
+                dotData += padre+"->"+padre+""+hijoactual+'[arrowhead="none"];';
+                hijoactual++;
+            }
+            //ir al siguiente hijo
+            var hijoactual:number = 2;
+            for(let obj of nodo.listaObjetos){
+                dotData += this.recorrerArbolTabla(dotData,obj,parseInt(padre+""+hijoactual));
+                hijoactual++;
+            }
+            return dotData;
+        }else{
+            dotData += padre+"[label=\""+ nodo.identificador  +"\";color=\"blue\"];";
+            //return dotData;
+        }
+    }
+}
+               //crear el nodo hijo, amarrarlo con el padre, incrementar el id numero del hijo
+               //dotData += hijo+"[label=\""+ obj.identificador  +"\";color=\"blue\"];";
+               // += padre+'->'+hijo+';';
+              // hijo++;
 //exports.entregable=entregable;
