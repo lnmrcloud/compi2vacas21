@@ -56,10 +56,24 @@
 
 </body>
 
+<!-- AREA DE IMPORTS -->
+
+<!-- AST -->
+<script src="dist/AST/Error.js"></script>
+<script src="dist/AST/Simbolo.js"></script>
+<script src="dist/AST/Tabla_errores.js"></script>
+<script src="dist/AST/Tabla_simbolos.js"></script>
+<script src="dist/AST/Tipo.js"></script>
+
+<!-- EXPRESIONES -->
+<script src="dist/Expresiones/Atributo.js"></script>
+<script src="dist/Expresiones/entregable.js"></script>
+<script src="dist/Expresiones/Objeto.js"></script>
+
+<!-- GRAMATICA -->
+
 <script src="Gramatica\gramatica.js"></script>
 <script src="GramaticaXPATH\gramaticaXpath.js"></script>
-<script src="dist/Expresiones/Objeto.js"></script>
-<script src="dist/Expresiones/Atributo.js"></script>
 
 <script type="text/javascript">
     document.getElementById('inputfile')
@@ -81,6 +95,8 @@
         semanticErrors = [];
         var toParse = document.getElementById("txtXML").value;
         var result = gramatica.parse(toParse);
+        result.CrearTabla();
+
 
         if (result != null) {
             document.getElementById("console").innerHTML = "retorne valor";

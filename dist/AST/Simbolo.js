@@ -1,18 +1,17 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Simbolo = void 0;
 class Simbolo {
-    constructor(tipo, id, linea, columna) {
-        this.indentificador = id;
+    constructor(nombre, tipo, valor, linea, columna, padre) {
         this.linea = linea;
         this.columna = columna;
         this.tipo = tipo;
+        this.valor = valor;
+        this.nombre = nombre;
+        this.padre = padre;
     }
-    getTipo(ent, arbol) {
+    getTipo() {
         return this.tipo;
     }
-    getValorImplicito(ent, arbol) {
+    getValor() {
         return this.valor;
     }
 }
-exports.Simbolo = Simbolo;

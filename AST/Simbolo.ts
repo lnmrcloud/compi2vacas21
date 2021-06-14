@@ -1,26 +1,24 @@
-import { Expresion } from "../Interfaces/Expresion";
-import { AST } from "./AST";
-import { Entorno } from "./Entorno";
-import { Tipo } from "./Tipo";
-
-export class Simbolo implements Expresion {
-    public indentificador: string;
-    private valor: any;
+class Simbolo  {
+    private nombre :string;
+    private valor: string;
     private tipo: Tipo;
+    private padre:number;
     linea: number;
     columna: number;
 
-    constructor(tipo:Tipo, id:string, linea:number, columna:number){
-        this.indentificador = id;
+    constructor(nombre:string,tipo:Tipo, valor:string, linea:number, columna:number,padre:number){        
         this.linea = linea;
         this.columna = columna;
         this.tipo = tipo;
+        this.valor=valor;
+        this.nombre=nombre;
+        this.padre=padre;
     }
 
-    getTipo(ent: Entorno, arbol: AST): Tipo {
+    getTipo(): Tipo {
         return this.tipo;
     }
-    getValorImplicito(ent: Entorno, arbol: AST) {
+    getValor():string {
         return this.valor;
     }
     

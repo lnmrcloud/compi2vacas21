@@ -72,66 +72,171 @@
   }
 */
 var gramatica = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,5],$V1=[1,10],$V2=[8,17],$V3=[21,23],$V4=[1,18],$V5=[19,21,23],$V6=[1,34],$V7=[1,35],$V8=[1,36],$V9=[1,37],$Va=[1,38],$Vb=[1,39],$Vc=[1,40],$Vd=[18,19,26,27,28,29,30,31],$Ve=[5,18];
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,6],$V1=[1,11],$V2=[8,17],$V3=[21,23],$V4=[1,19],$V5=[19,21,23],$V6=[1,35],$V7=[1,36],$V8=[1,37],$V9=[1,38],$Va=[1,39],$Vb=[1,40],$Vc=[1,41],$Vd=[18,19,26,27,28,29,30,31],$Ve=[5,18];
 var parser = {trace: function trace () { },
 yy: {},
 symbols_: {"error":2,"START":3,"XML_INI":4,"EOF":5,"inicio":6,"ATIS":7,"fin":8,"OBJ":9,"VERSION":10,"CODI":11,"DEPEN":12,"versi":13,"igual":14,"string":15,"encoding":16,"standalone":17,"abre":18,"etiqueta":19,"LATRIS":20,"cierra":21,"OBJS":22,"diagonal":23,"DATS":24,"DAT":25,"etiqueta2":26,"lt":27,"amp":28,"quot":29,"apos":30,"gt":31,"ATRIS":32,"ATRI":33,"$accept":0,"$end":1},
 terminals_: {2:"error",5:"EOF",6:"inicio",8:"fin",13:"versi",14:"igual",15:"string",16:"encoding",17:"standalone",18:"abre",19:"etiqueta",21:"cierra",23:"diagonal",26:"etiqueta2",27:"lt",28:"amp",29:"quot",30:"apos",31:"gt"},
-productions_: [0,[3,2],[4,4],[4,1],[7,3],[10,3],[11,3],[11,0],[12,3],[12,0],[9,9],[9,9],[9,5],[24,2],[24,1],[25,1],[25,1],[25,1],[25,1],[25,1],[25,1],[25,1],[20,1],[20,0],[32,2],[32,1],[33,3],[22,2],[22,1]],
+productions_: [0,[3,2],[4,4],[4,1],[4,1],[7,3],[10,3],[11,3],[11,0],[12,3],[12,0],[9,9],[9,9],[9,5],[24,2],[24,1],[25,1],[25,1],[25,1],[25,1],[25,1],[25,1],[25,1],[20,1],[20,0],[32,2],[32,1],[33,3],[22,2],[22,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
 var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
- this.$ = $$[$0-1]; return this.$; 
+ 
+                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n START : XML_INI EOF { S = S1; return S; }";
+                                                entreg.arbol=$$[$0-1];
+                                                entreg.CrearTabla();
+                                                this.$ = entreg; return this.$; 
+                                         
 break;
 case 2:
-this.$=$$[$0] 
+      this.$=$$[$0];
+                                                entreg.confi_xml=$$[$0-2];
+                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n inicio ATIS fin OBJ entreg.arbol=S4;entreg.confi_xml=S2;S=entreg;}";
+                                         
 break;
-case 3: case 14: case 15: case 16: case 17: case 18: case 19: case 20: case 21:
-this.$ = $$[$0];
+case 3:
+      this.$ = $$[$0]
+                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n XML_INI->OBJ {S = S1}";
+                                         
 break;
 case 4:
-$$[$0-2].push($$[$0-1]);$$[$0-2].push($$[$0]); this.$ = $$[$0-2];
+      
+                                                var error_sin= new ErrorA('sintactico','Este es un error sintactico: ' + yytext,yylloc.first_line,yylloc.first_column);
+                                                entreg.tabla_errores.agregar(error_sin); 
+                                        
 break;
 case 5:
-this.$ = [new Atributo($$[$0-2], $$[$0], _$[$0-2].first_line, _$[$0-2].first_column)];
+$$[$0-2].push($$[$0-1]);$$[$0-2].push($$[$0]); this.$ = $$[$0-2];
+                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n ATIS->VERSION CODI DEPEN {S1.push(S2);S1.push(S3); S = S1;}";
+                                        
 break;
-case 6: case 8: case 26:
+case 6:
+this.$ = [new Atributo($$[$0-2], $$[$0], _$[$0-2].first_line, _$[$0-2].first_column)];
+                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n VERSION->versi igual string {S = [new Atributo(S1, S3, a1.first_line, a1.first_column)];}";
+                                        
+break;
+case 7:
 this.$ = new Atributo($$[$0-2], $$[$0], _$[$0-2].first_line, _$[$0-2].first_column);
+                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n CODI->encoding igual string {S = new Atributo(S1, S3, a1.first_line, a1.first_column);}";
+                                        
+break;
+case 8:
+
+                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n CODI->Epsilon {}";
+                                        
+break;
+case 9:
+this.$ = new Atributo($$[$0-2], $$[$0], _$[$0-2].first_line, _$[$0-2].first_column);
+                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n DEPEN->standalone igual string {S = new Atributo(S1, S3, a1.first_line, a1.first_column);}";
+                                        
 break;
 case 10:
-this.$ = new Objeto($$[$0-7],'',_$[$0-8].first_line, _$[$0-8].first_column,$$[$0-6],$$[$0-4]);
+       
+                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n DEPEN->Epsilon {}";
+                                        
 break;
 case 11:
-this.$ = new Objeto($$[$0-7],$$[$0-4],_$[$0-8].first_line, _$[$0-8].first_column,$$[$0-6],[]);
+this.$ = new Objeto($$[$0-7],'',_$[$0-8].first_line, _$[$0-8].first_column,$$[$0-6],$$[$0-4]);
+                                                                                        entreg.reporte_gramatical=entreg.reporte_gramatical+"\n OBJ->abre etiqueta LATRIS cierra OBJS abre diagonal etiqueta cierra {S = new Objeto(S2,'',a1.first_line, a1.first_column,S3,S5);}";
+                                                                                 
 break;
 case 12:
-this.$ = new Objeto($$[$0-3],'',_$[$0-4].first_line, _$[$0-4].first_column,$$[$0-2],[]);
+this.$ = new Objeto($$[$0-7],$$[$0-4],_$[$0-8].first_line, _$[$0-8].first_column,$$[$0-6],[]);
+                                                                                        entreg.reporte_gramatical=entreg.reporte_gramatical+"\n OBJ->abre etiqueta LATRIS cierra DATS abre diagonal etiqueta cierra {S = new Objeto(S2,S5,a1.first_line, a1.first_column,S3,[]);}";
+                                                                                 
 break;
 case 13:
-$$[$0-1]=$$[$0-1]+' '+$$[$0];this.$ =$$[$0-1] ;
+this.$ = new Objeto($$[$0-3],'',_$[$0-4].first_line, _$[$0-4].first_column,$$[$0-2],[]);
+                                                                                        entreg.reporte_gramatical=entreg.reporte_gramatical+"\n OBJ->abre etiqueta LATRIS diagonal cierra {S = new Objeto(S2,'',a1.first_line, a1.first_column,S3,[]);}";
+                                                                                 
 break;
-case 22: case 25:
-this.$ = [$$[$0]];
+case 14:
+$$[$0-1]=$$[$0-1]+' '+$$[$0];this.$ =$$[$0-1] ;
+                                                                                        entreg.reporte_gramatical=entreg.reporte_gramatical+"\n DATS->DATS DAT {S1=S1+' '+S2;S =S1 ;}";
+                                                                                 
+break;
+case 15:
+this.$ = $$[$0];
+                                                                                        entreg.reporte_gramatical=entreg.reporte_gramatical+"\n DATS->DAT {S = S1;}";
+                                                                                 
+break;
+case 16:
+this.$ = $$[$0];
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n DAT->etiqueta {S = S1;}";
+                                        
+break;
+case 17:
+this.$ = $$[$0];
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n DAT->etiqueta2 {S = S1;}";
+                                        
+break;
+case 18:
+this.$ = "<";
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n DAT->lt {S = <;}";
+                                        
+break;
+case 19:
+this.$ = "&";
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n DAT->amp {S = &;}";
+                                        
+break;
+case 20:
+this.$ = '"';
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+'\n DAT->quot {S = ";}';
+                                        
+break;
+case 21:
+this.$ = "'";
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n DAT->apos {S = ';}";
+                                        
+break;
+case 22:
+this.$ = ">";
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n DAT->gt {S = >;}";
+                                        
 break;
 case 23:
-this.$ = [];
+this.$ = [$$[$0]];
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n LATRIS->ATRIS {S = [S1];}";
+                                        
 break;
 case 24:
+this.$ = [];
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n LATRIS->Epsilon{S = [];";
+                                        
+break;
+case 25:
 $$[$0-1].push($$[$0]); this.$ = $$[$0-1];
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n ATRIS->ATRIS ATRI {S.push(S2); S = S1;}";
+                                        
+break;
+case 26:
+this.$ = [$$[$0]];
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n ATRIS->ATRI {S = [S1];}";
+                                        
 break;
 case 27:
- $$[$0-1].push($$[$0]); this.$ = $$[$0-1];
+this.$ = new Atributo($$[$0-2], $$[$0], _$[$0-2].first_line, _$[$0-2].first_column);
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n ATRI->etiqueta igual string {S = new Atributo(S1, S3, a1.first_line, a1.first_column);}";
+                                        
 break;
 case 28:
+ $$[$0-1].push($$[$0]); this.$ = $$[$0-1];
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n OBJS->OBJS OBJ{ S1.push(S2); S = S1;}";      
+                                        
+break;
+case 29:
  this.$ = [$$[$0]];
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n OBJS->OBJ{}";
+                                        
 break;
 }
 },
-table: [{3:1,4:2,6:[1,3],9:4,18:$V0},{1:[3]},{5:[1,6]},{7:7,10:8,13:[1,9]},{5:[2,3]},{19:$V1},{1:[2,1]},{8:[1,11]},o($V2,[2,7],{11:12,16:[1,13]}),{14:[1,14]},o($V3,[2,23],{20:15,32:16,33:17,19:$V4}),{9:19,18:$V0},{8:[2,9],12:20,17:[1,21]},{14:[1,22]},{15:[1,23]},{21:[1,24],23:[1,25]},o($V3,[2,22],{33:26,19:$V4}),o($V5,[2,25]),{14:[1,27]},{5:[2,2]},{8:[2,4]},{14:[1,28]},{15:[1,29]},o([8,16,17],[2,5]),{9:32,18:$V0,19:$V6,22:30,24:31,25:33,26:$V7,27:$V8,28:$V9,29:$Va,30:$Vb,31:$Vc},{21:[1,41]},o($V5,[2,24]),{15:[1,42]},{15:[1,43]},o($V2,[2,6]),{9:45,18:[1,44]},{18:[1,46],19:$V6,25:47,26:$V7,27:$V8,28:$V9,29:$Va,30:$Vb,31:$Vc},{18:[2,28]},o($Vd,[2,14]),o($Vd,[2,15]),o($Vd,[2,16]),o($Vd,[2,17]),o($Vd,[2,18]),o($Vd,[2,19]),o($Vd,[2,20]),o($Vd,[2,21]),o($Ve,[2,12]),o($V5,[2,26]),{8:[2,8]},{19:$V1,23:[1,48]},{18:[2,27]},{23:[1,49]},o($Vd,[2,13]),{19:[1,50]},{19:[1,51]},{21:[1,52]},{21:[1,53]},o($Ve,[2,10]),o($Ve,[2,11])],
-defaultActions: {4:[2,3],6:[2,1],19:[2,2],20:[2,4],32:[2,28],43:[2,8],45:[2,27]},
+table: [{2:[1,5],3:1,4:2,6:[1,3],9:4,18:$V0},{1:[3]},{5:[1,7]},{7:8,10:9,13:[1,10]},{5:[2,3]},{5:[2,4]},{19:$V1},{1:[2,1]},{8:[1,12]},o($V2,[2,8],{11:13,16:[1,14]}),{14:[1,15]},o($V3,[2,24],{20:16,32:17,33:18,19:$V4}),{9:20,18:$V0},{8:[2,10],12:21,17:[1,22]},{14:[1,23]},{15:[1,24]},{21:[1,25],23:[1,26]},o($V3,[2,23],{33:27,19:$V4}),o($V5,[2,26]),{14:[1,28]},{5:[2,2]},{8:[2,5]},{14:[1,29]},{15:[1,30]},o([8,16,17],[2,6]),{9:33,18:$V0,19:$V6,22:31,24:32,25:34,26:$V7,27:$V8,28:$V9,29:$Va,30:$Vb,31:$Vc},{21:[1,42]},o($V5,[2,25]),{15:[1,43]},{15:[1,44]},o($V2,[2,7]),{9:46,18:[1,45]},{18:[1,47],19:$V6,25:48,26:$V7,27:$V8,28:$V9,29:$Va,30:$Vb,31:$Vc},{18:[2,29]},o($Vd,[2,15]),o($Vd,[2,16]),o($Vd,[2,17]),o($Vd,[2,18]),o($Vd,[2,19]),o($Vd,[2,20]),o($Vd,[2,21]),o($Vd,[2,22]),o($Ve,[2,13]),o($V5,[2,27]),{8:[2,9]},{19:$V1,23:[1,49]},{18:[2,28]},{23:[1,50]},o($Vd,[2,14]),{19:[1,51]},{19:[1,52]},{21:[1,53]},{21:[1,54]},o($Ve,[2,11]),o($Ve,[2,12])],
+defaultActions: {4:[2,3],5:[2,4],7:[2,1],20:[2,2],21:[2,5],33:[2,29],44:[2,9],46:[2,28]},
 parseError: function parseError (str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -141,16 +246,33 @@ parseError: function parseError (str, hash) {
         throw error;
     }
 },
-parse: function parse(input) {
-    var self = this, stack = [0], tstack = [], vstack = [null], lstack = [], table = this.table, yytext = '', yylineno = 0, yyleng = 0, recovering = 0, TERROR = 2, EOF = 1;
+parse: function parse (input) {
+    var self = this,
+        stack = [0],
+        tstack = [], // token stack
+        vstack = [null], // semantic value stack
+        lstack = [], // location stack
+        table = this.table,
+        yytext = '',
+        yylineno = 0,
+        yyleng = 0,
+        recovering = 0,
+        TERROR = 2,
+        EOF = 1;
+
     var args = lstack.slice.call(arguments, 1);
+
+    //this.reductionCount = this.shiftCount = 0;
+
     var lexer = Object.create(this.lexer);
     var sharedState = { yy: {} };
+    // copy state
     for (var k in this.yy) {
-        if (Object.prototype.hasOwnProperty.call(this.yy, k)) {
-            sharedState.yy[k] = this.yy[k];
-        }
+      if (Object.prototype.hasOwnProperty.call(this.yy, k)) {
+        sharedState.yy[k] = this.yy[k];
+      }
     }
+
     lexer.setInput(input, sharedState.yy);
     sharedState.yy.lexer = lexer;
     sharedState.yy.parser = this;
@@ -159,128 +281,217 @@ parse: function parse(input) {
     }
     var yyloc = lexer.yylloc;
     lstack.push(yyloc);
+
     var ranges = lexer.options && lexer.options.ranges;
+
     if (typeof sharedState.yy.parseError === 'function') {
         this.parseError = sharedState.yy.parseError;
     } else {
         this.parseError = Object.getPrototypeOf(this).parseError;
     }
-    function popStack(n) {
+
+    function popStack (n) {
         stack.length = stack.length - 2 * n;
         vstack.length = vstack.length - n;
         lstack.length = lstack.length - n;
     }
-    _token_stack:
-        var lex = function () {
-            var token;
-            token = lexer.lex() || EOF;
-            if (typeof token !== 'number') {
-                token = self.symbols_[token] || token;
-            }
-            return token;
-        };
+
+_token_stack:
+    var lex = function () {
+        var token;
+        token = lexer.lex() || EOF;
+        // if token isn't its numeric value, convert
+        if (typeof token !== 'number') {
+            token = self.symbols_[token] || token;
+        }
+        return token;
+    }
+
     var symbol, preErrorSymbol, state, action, a, r, yyval = {}, p, len, newState, expected;
     while (true) {
+        // retreive state number from top of stack
         state = stack[stack.length - 1];
+
+        // use default actions if available
         if (this.defaultActions[state]) {
             action = this.defaultActions[state];
         } else {
             if (symbol === null || typeof symbol == 'undefined') {
                 symbol = lex();
             }
+            // read action for current state and first input
             action = table[state] && table[state][symbol];
         }
-                    if (typeof action === 'undefined' || !action.length || !action[0]) {
-                var errStr = '';
+
+_handle_error:
+        // handle parse error
+        if (typeof action === 'undefined' || !action.length || !action[0]) {
+            var error_rule_depth;
+            var errStr = '';
+
+            // Return the rule stack depth where the nearest error rule can be found.
+            // Return FALSE when no error recovery rule was found.
+            function locateNearestErrorRecoveryRule(state) {
+                var stack_probe = stack.length - 1;
+                var depth = 0;
+
+                // try to recover from error
+                for(;;) {
+                    // check for error recovery rule in this state
+                    if ((TERROR.toString()) in table[state]) {
+                        return depth;
+                    }
+                    if (state === 0 || stack_probe < 2) {
+                        return false; // No suitable error recovery rule available.
+                    }
+                    stack_probe -= 2; // popStack(1): [symbol, action]
+                    state = stack[stack_probe];
+                    ++depth;
+                }
+            }
+
+            if (!recovering) {
+                // first see if there's any chance at hitting an error recovery rule:
+                error_rule_depth = locateNearestErrorRecoveryRule(state);
+
+                // Report error
                 expected = [];
                 for (p in table[state]) {
                     if (this.terminals_[p] && p > TERROR) {
-                        expected.push('\'' + this.terminals_[p] + '\'');
+                        expected.push("'"+this.terminals_[p]+"'");
                     }
                 }
                 if (lexer.showPosition) {
-                    errStr = 'Parse error on line ' + (yylineno + 1) + ':\n' + lexer.showPosition() + '\nExpecting ' + expected.join(', ') + ', got \'' + (this.terminals_[symbol] || symbol) + '\'';
+                    errStr = 'Parse error on line '+(yylineno+1)+":\n"+lexer.showPosition()+"\nExpecting "+expected.join(', ') + ", got '" + (this.terminals_[symbol] || symbol)+ "'";
                 } else {
-                    errStr = 'Parse error on line ' + (yylineno + 1) + ': Unexpected ' + (symbol == EOF ? 'end of input' : '\'' + (this.terminals_[symbol] || symbol) + '\'');
+                    errStr = 'Parse error on line '+(yylineno+1)+": Unexpected " +
+                                  (symbol == EOF ? "end of input" :
+                                              ("'"+(this.terminals_[symbol] || symbol)+"'"));
                 }
                 this.parseError(errStr, {
                     text: lexer.match,
                     token: this.terminals_[symbol] || symbol,
                     line: lexer.yylineno,
                     loc: yyloc,
-                    expected: expected
+                    expected: expected,
+                    recoverable: (error_rule_depth !== false)
                 });
+            } else if (preErrorSymbol !== EOF) {
+                error_rule_depth = locateNearestErrorRecoveryRule(state);
             }
-        if (action[0] instanceof Array && action.length > 1) {
-            throw new Error('Parse Error: multiple actions possible at state: ' + state + ', token: ' + symbol);
-        }
-        switch (action[0]) {
-        case 1:
-            stack.push(symbol);
-            vstack.push(lexer.yytext);
-            lstack.push(lexer.yylloc);
-            stack.push(action[1]);
-            symbol = null;
-            if (!preErrorSymbol) {
+
+            // just recovered from another error
+            if (recovering == 3) {
+                if (symbol === EOF || preErrorSymbol === EOF) {
+                    throw new Error(errStr || 'Parsing halted while starting to recover from another error.');
+                }
+
+                // discard current lookahead and grab another
                 yyleng = lexer.yyleng;
                 yytext = lexer.yytext;
                 yylineno = lexer.yylineno;
                 yyloc = lexer.yylloc;
-                if (recovering > 0) {
-                    recovering--;
-                }
-            } else {
-                symbol = preErrorSymbol;
-                preErrorSymbol = null;
+                symbol = lex();
             }
-            break;
-        case 2:
-            len = this.productions_[action[1]][1];
-            yyval.$ = vstack[vstack.length - len];
-            yyval._$ = {
-                first_line: lstack[lstack.length - (len || 1)].first_line,
-                last_line: lstack[lstack.length - 1].last_line,
-                first_column: lstack[lstack.length - (len || 1)].first_column,
-                last_column: lstack[lstack.length - 1].last_column
-            };
-            if (ranges) {
-                yyval._$.range = [
-                    lstack[lstack.length - (len || 1)].range[0],
-                    lstack[lstack.length - 1].range[1]
-                ];
+
+            // try to recover from error
+            if (error_rule_depth === false) {
+                throw new Error(errStr || 'Parsing halted. No suitable error recovery rule available.');
             }
-            r = this.performAction.apply(yyval, [
-                yytext,
-                yyleng,
-                yylineno,
-                sharedState.yy,
-                action[1],
-                vstack,
-                lstack
-            ].concat(args));
-            if (typeof r !== 'undefined') {
-                return r;
-            }
-            if (len) {
-                stack = stack.slice(0, -1 * len * 2);
-                vstack = vstack.slice(0, -1 * len);
-                lstack = lstack.slice(0, -1 * len);
-            }
-            stack.push(this.productions_[action[1]][0]);
-            vstack.push(yyval.$);
-            lstack.push(yyval._$);
-            newState = table[stack[stack.length - 2]][stack[stack.length - 1]];
-            stack.push(newState);
-            break;
-        case 3:
-            return true;
+            popStack(error_rule_depth);
+
+            preErrorSymbol = (symbol == TERROR ? null : symbol); // save the lookahead token
+            symbol = TERROR;         // insert generic error symbol as new lookahead
+            state = stack[stack.length-1];
+            action = table[state] && table[state][TERROR];
+            recovering = 3; // allow 3 real symbols to be shifted before reporting a new error
         }
+
+        // this shouldn't happen, unless resolve defaults are off
+        if (action[0] instanceof Array && action.length > 1) {
+            throw new Error('Parse Error: multiple actions possible at state: '+state+', token: '+symbol);
+        }
+
+        switch (action[0]) {
+            case 1: // shift
+                //this.shiftCount++;
+
+                stack.push(symbol);
+                vstack.push(lexer.yytext);
+                lstack.push(lexer.yylloc);
+                stack.push(action[1]); // push state
+                symbol = null;
+                if (!preErrorSymbol) { // normal execution/no error
+                    yyleng = lexer.yyleng;
+                    yytext = lexer.yytext;
+                    yylineno = lexer.yylineno;
+                    yyloc = lexer.yylloc;
+                    if (recovering > 0) {
+                        recovering--;
+                    }
+                } else {
+                    // error just occurred, resume old lookahead f/ before error
+                    symbol = preErrorSymbol;
+                    preErrorSymbol = null;
+                }
+                break;
+
+            case 2:
+                // reduce
+                //this.reductionCount++;
+
+                len = this.productions_[action[1]][1];
+
+                // perform semantic action
+                yyval.$ = vstack[vstack.length-len]; // default to $$ = $1
+                // default location, uses first token for firsts, last for lasts
+                yyval._$ = {
+                    first_line: lstack[lstack.length-(len||1)].first_line,
+                    last_line: lstack[lstack.length-1].last_line,
+                    first_column: lstack[lstack.length-(len||1)].first_column,
+                    last_column: lstack[lstack.length-1].last_column
+                };
+                if (ranges) {
+                  yyval._$.range = [lstack[lstack.length-(len||1)].range[0], lstack[lstack.length-1].range[1]];
+                }
+                r = this.performAction.apply(yyval, [yytext, yyleng, yylineno, sharedState.yy, action[1], vstack, lstack].concat(args));
+
+                if (typeof r !== 'undefined') {
+                    return r;
+                }
+
+                // pop off stack
+                if (len) {
+                    stack = stack.slice(0,-1*len*2);
+                    vstack = vstack.slice(0, -1*len);
+                    lstack = lstack.slice(0, -1*len);
+                }
+
+                stack.push(this.productions_[action[1]][0]);    // push nonterminal (reduce)
+                vstack.push(yyval.$);
+                lstack.push(yyval._$);
+                // goto new state = table[STATE][NONTERMINAL]
+                newState = table[stack[stack.length-2]][stack[stack.length-1]];
+                stack.push(newState);
+                break;
+
+            case 3:
+                // accept
+                return true;
+        }
+
     }
+
     return true;
 }};
+
+        //const {entregable}=  require("../Expresiones/entregable");
+        //const {Error}=  require("../AST/ErrorA");
+        var entreg= new entregable;
     
     //const {Objeto} = require("../Expresiones/Objeto");
     //const {Atributo} = require("../Expresiones/Atributo");
+        
 /* generated by jison-lex 0.3.4 */
 var lexer = (function(){
 var lexer = ({
@@ -659,6 +870,8 @@ case 23:/**/
 break;
 case 24:
                                         console.error('Este es un error léxico: ' + yy_.yytext + ', en la linea: ' + yy_.yylloc.first_line + ', en la columna: ' + yy_.yylloc.first_column);
+                                        var error_lex= new ErrorA('lexico','Este es un error léxico: ' + yy_.yytext,yy_.yylloc.first_line,yy_.yylloc.first_column);
+                                        entreg.tabla_errores.agregar(error_lex);                                        
                                     
 break;
 case 25:return 5

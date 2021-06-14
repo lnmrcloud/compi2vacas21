@@ -1,3 +1,9 @@
+%{
+        //const {entregable}=  require("../Expresiones/entregable");
+        //const {Error}=  require("../AST/ErrorA");
+        var entreg= new entregable;
+%}
+
 /* Definición Léxica */
 %lex
 
@@ -50,6 +56,8 @@ BSL                                 "\\".
 //error lexico
 .                                   {
                                         console.error('Este es un error léxico: ' + yytext + ', en la linea: ' + yylloc.first_line + ', en la columna: ' + yylloc.first_column);
+                                        var error_lex= new ErrorA('lexico','Este es un error léxico: ' + yytext,yylloc.first_line,yylloc.first_column);
+                                        entreg.tabla_errores.agregar(error_lex);                                        
                                     }
 
 <<EOF>>                     return 'EOF'
@@ -60,6 +68,7 @@ BSL                                 "\\".
 %{    
     //const {Objeto} = require("../Expresiones/Objeto");
     //const {Atributo} = require("../Expresiones/Atributo");
+        
 %}
 
 // DEFINIMOS PRESEDENCIA DE OPERADORES
@@ -70,53 +79,126 @@ BSL                                 "\\".
 %%
 
 
+
+
+
+
+
 /* Definición de la gramática */
-START : XML_INI EOF         { $$ = $1; return $$; }
+START : XML_INI EOF                      { 
+                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n START : XML_INI EOF { S = S1; return S; }";
+                                                entreg.arbol=$1;
+                                                entreg.CrearTabla();
+                                                $$ = entreg; return $$; 
+                                         }
 ;
 
-XML_INI : inicio ATIS fin OBJ      {$$=$4 }
-    |OBJ                                 {$$ = $1;}
+XML_INI : inicio ATIS fin OBJ            {      $$=$4;
+                                                entreg.confi_xml=$2;
+                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n inicio ATIS fin OBJ entreg.arbol=S4;entreg.confi_xml=S2;S=entreg;}";
+                                         }
+    |OBJ                                 {      $$ = $1
+                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n XML_INI->OBJ {S = S1}";
+                                         }
+    |error                              {      
+                                                var error_sin= new ErrorA('sintactico','Este es un error sintactico: ' + yytext,yylloc.first_line,yylloc.first_column);
+                                                entreg.tabla_errores.agregar(error_sin); 
+                                        }
 ;
 
-ATIS : VERSION CODI DEPEN               {$1.push($2);$1.push($3); $$ = $1;}
+ATIS : VERSION CODI DEPEN               {$1.push($2);$1.push($3); $$ = $1;
+                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n ATIS->VERSION CODI DEPEN {S1.push(S2);S1.push(S3); S = S1;}";
+                                        }
 ;
 
-VERSION : versi igual string            {$$ = [new Atributo($1, $3, @1.first_line, @1.first_column)];}
+VERSION : versi igual string            {$$ = [new Atributo($1, $3, @1.first_line, @1.first_column)];
+                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n VERSION->versi igual string {S = [new Atributo(S1, S3, a1.first_line, a1.first_column)];}";
+                                        }
 ;
-CODI : encoding igual string            {$$ = new Atributo($1, $3, @1.first_line, @1.first_column);}
-    |                                   {}
+CODI : encoding igual string            {$$ = new Atributo($1, $3, @1.first_line, @1.first_column);
+                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n CODI->encoding igual string {S = new Atributo(S1, S3, a1.first_line, a1.first_column);}";
+                                        }
+    |                                   {
+                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n CODI->Epsilon {}";
+                                        }
 ;
-DEPEN : standalone igual string         {$$ = new Atributo($1, $3, @1.first_line, @1.first_column);}
-        |                               {}
+DEPEN : standalone igual string         {$$ = new Atributo($1, $3, @1.first_line, @1.first_column);
+                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n DEPEN->standalone igual string {S = new Atributo(S1, S3, a1.first_line, a1.first_column);}";
+                                        }
+        |                               {       
+                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n DEPEN->Epsilon {}";
+                                        }
 ;
 
-OBJ : abre etiqueta LATRIS cierra OBJS abre diagonal etiqueta cierra           {$$ = new Objeto($2,'',@1.first_line, @1.first_column,$3,$5);}
-        |abre etiqueta LATRIS cierra DATS abre diagonal etiqueta cierra        {$$ = new Objeto($2,$5,@1.first_line, @1.first_column,$3,[]);}
-        |abre etiqueta LATRIS diagonal cierra                                   {$$ = new Objeto($2,'',@1.first_line, @1.first_column,$3,[]);}
+OBJ : abre etiqueta LATRIS cierra OBJS abre diagonal etiqueta cierra             {$$ = new Objeto($2,'',@1.first_line, @1.first_column,$3,$5);
+                                                                                        entreg.reporte_gramatical=entreg.reporte_gramatical+"\n OBJ->abre etiqueta LATRIS cierra OBJS abre diagonal etiqueta cierra {S = new Objeto(S2,'',a1.first_line, a1.first_column,S3,S5);}";
+                                                                                 }
+        |abre etiqueta LATRIS cierra DATS abre diagonal etiqueta cierra          {$$ = new Objeto($2,$5,@1.first_line, @1.first_column,$3,[]);
+                                                                                        entreg.reporte_gramatical=entreg.reporte_gramatical+"\n OBJ->abre etiqueta LATRIS cierra DATS abre diagonal etiqueta cierra {S = new Objeto(S2,S5,a1.first_line, a1.first_column,S3,[]);}";
+                                                                                 }
+        |abre etiqueta LATRIS diagonal cierra                                    {$$ = new Objeto($2,'',@1.first_line, @1.first_column,$3,[]);
+                                                                                        entreg.reporte_gramatical=entreg.reporte_gramatical+"\n OBJ->abre etiqueta LATRIS diagonal cierra {S = new Objeto(S2,'',a1.first_line, a1.first_column,S3,[]);}";
+                                                                                 }       
 ;
-DATS : DATS DAT                          {$1=$1+' '+$2;$$ =$1 ;}
-        |DAT                          {$$ = $1;}
+DATS : DATS DAT                                                                  {$1=$1+' '+$2;$$ =$1 ;
+                                                                                        entreg.reporte_gramatical=entreg.reporte_gramatical+"\n DATS->DATS DAT {S1=S1+' '+S2;S =S1 ;}";
+                                                                                 }
+        |DAT                                                                     {$$ = $1;
+                                                                                        entreg.reporte_gramatical=entreg.reporte_gramatical+"\n DATS->DAT {S = S1;}";
+                                                                                 }
 ;
 DAT :
-        etiqueta                        {$$ = $1;}                
-        |etiqueta2                        {$$ = $1;}                
-        |lt                             {$$ = $1;}        
-        |amp                            {$$ = $1;}
-        |quot                           {$$ = $1;}
-        |apos                           {$$ = $1;}
-        |gt                             {$$ = $1;}        
+        etiqueta                        {$$ = $1;
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n DAT->etiqueta {S = S1;}";
+                                        }                
+        |etiqueta2                      {$$ = $1;
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n DAT->etiqueta2 {S = S1;}";
+                                        }                
+        |lt                             {$$ = "<";
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n DAT->lt {S = <;}";
+                                        }        
+        |amp                            {$$ = "&";
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n DAT->amp {S = &;}";
+                                        }
+        |quot                           {$$ = '"';
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+'\n DAT->quot {S = ";}';
+                                        }
+        |apos                           {$$ = "'";
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n DAT->apos {S = ';}";
+                                        }
+        |gt                             {$$ = ">";
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n DAT->gt {S = >;}";
+                                        }        
 ;
 
-LATRIS : ATRIS                          {$$ = [$1];}
-        |                               {$$ = [];}
+LATRIS : ATRIS                          {$$ = [$1];
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n LATRIS->ATRIS {S = [S1];}";
+                                        }
+        |                               {$$ = [];
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n LATRIS->Epsilon{S = [];";
+                                        }
 ;
-ATRIS : ATRIS ATRI                      {$1.push($2); $$ = $1;}
-        |ATRI                           {$$ = [$1];}
+ATRIS : ATRIS ATRI                      {$1.push($2); $$ = $1;
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n ATRIS->ATRIS ATRI {S.push(S2); S = S1;}";
+                                        }
+        |ATRI                           {$$ = [$1];
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n ATRIS->ATRI {S = [S1];}";
+                                        }
 ;
 
-ATRI : etiqueta igual string            {$$ = new Atributo($1, $3, @1.first_line, @1.first_column);}
+ATRI : etiqueta igual string            {$$ = new Atributo($1, $3, @1.first_line, @1.first_column);
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n ATRI->etiqueta igual string {S = new Atributo(S1, S3, a1.first_line, a1.first_column);}";
+                                        }
 ;
 
-OBJS : OBJS OBJ                         { $1.push($2); $$ = $1;}
-        |OBJ                            { $$ = [$1];}
+OBJS : OBJS OBJ                         { $1.push($2); $$ = $1;
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n OBJS->OBJS OBJ{ S1.push(S2); S = S1;}";      
+                                        }
+        |OBJ                            { $$ = [$1];
+                                          entreg.reporte_gramatical=entreg.reporte_gramatical+"\n OBJS->OBJ{}";
+                                        }
 ;
+
+
+
+
