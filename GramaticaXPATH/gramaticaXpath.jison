@@ -33,9 +33,14 @@ Definición Léxica
 "and"                   return 'and';  
 "or"                    return 'or';
 
+
+//PALABRAS RESERVADAS XPATH
+
 "text"                  return 'rtext';
 "last"                  return 'rlast';
 "node"                  return 'rnode';
+'position'              return 'rposition';
+'comment'               return 'rcomment';
 
 
 /* Espacios en blanco */
