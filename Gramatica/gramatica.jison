@@ -1,7 +1,7 @@
 %{
         //const {entregable}=  require("../Expresiones/entregable");
         //const {Error}=  require("../AST/ErrorA");
-        var entreg= new entregable;
+        var entreg= new entregable;  
 %}
 
 /* Definición Léxica */
@@ -79,11 +79,6 @@ BSL                                 "\\".
 %%
 
 
-
-
-
-
-
 /* Definición de la gramática */
 START : XML_INI EOF                      { 
                                                 entreg.reporte_gramatical=entreg.reporte_gramatical+"\n START : XML_INI EOF { S = S1; return S; }";
@@ -132,12 +127,35 @@ DEPEN : standalone igual string         {$$ = new Atributo($1, $3, @1.first_line
 
 OBJ : abre etiqueta LATRIS cierra OBJS abre diagonal etiqueta cierra             {$$ = new Objeto($2,'',@1.first_line, @1.first_column,$3,$5);
                                                                                         entreg.reporte_gramatical=entreg.reporte_gramatical+"\n OBJ->abre etiqueta LATRIS cierra OBJS abre diagonal etiqueta cierra {S = new Objeto(S2,'',a1.first_line, a1.first_column,S3,S5);}";
+
+                                                                                  //PADRES DE ROJO
+                                                                                  //dotData += contadorNodo+'[label=\"'+$2+'\";color=\"red\"];';
+                                                                                  //contadorNodo++;
+
                                                                                  }
         |abre etiqueta LATRIS cierra DATS abre diagonal etiqueta cierra          {$$ = new Objeto($2,$5,@1.first_line, @1.first_column,$3,[]);
                                                                                         entreg.reporte_gramatical=entreg.reporte_gramatical+"\n OBJ->abre etiqueta LATRIS cierra DATS abre diagonal etiqueta cierra {S = new Objeto(S2,S5,a1.first_line, a1.first_column,S3,[]);}";
+                                                                                  
+                                                                                  
+                                                                                  //GRAFICANDO ETIQUETAS CON CONTENIDO
+                                                                                  //CONTENIDO DE AZUL
+                                                                                  //crear la etiqueta con su numero de contador
+                                                                                  //dotData += contadorNodo+'[label=\"'+$5+'\";color=\"blue\"];';
+                                                                                  //contadorNodo++;
+                                                                                  //HIJOS DE VERDE
+                                                                                  //dotData += contadorNodo+'[label=\"'+$2+'\";color=\"green\"];';
+                                                                                  //let nodoaux = contadorNodo-1;
+                                                                                  //dotData += contadorNodo+'->'+nodoaux+';';
+                                                                                  //contadorNodo++;
+                                                                                 
                                                                                  }
         |abre etiqueta LATRIS diagonal cierra                                    {$$ = new Objeto($2,'',@1.first_line, @1.first_column,$3,[]);
                                                                                         entreg.reporte_gramatical=entreg.reporte_gramatical+"\n OBJ->abre etiqueta LATRIS diagonal cierra {S = new Objeto(S2,'',a1.first_line, a1.first_column,S3,[]);}";
+                                                                                  
+                                                                                  //ETIQUETAS SIN CONTENIDO Y SOLO ATRIBUTOS
+                                                                                  //crear la etiqueta con su numero de contador
+                                                                                  //dotData += contadorNodo+'[label=\"'+$2+'\"];';
+                                                                                  //contadorNodo++;
                                                                                  }       
 ;
 DATS : DATS DAT                                                                  {$1=$1+' '+$2;$$ =$1 ;

@@ -141,16 +141,39 @@ break;
 case 11:
 this.$ = new Objeto($$[$0-7],'',_$[$0-8].first_line, _$[$0-8].first_column,$$[$0-6],$$[$0-4]);
                                                                                         entreg.reporte_gramatical=entreg.reporte_gramatical+"\n OBJ->abre etiqueta LATRIS cierra OBJS abre diagonal etiqueta cierra {S = new Objeto(S2,'',a1.first_line, a1.first_column,S3,S5);}";
+
+                                                                                  //PADRES DE ROJO
+                                                                                  //dotData += contadorNodo+'[label=\"'+$$[$0-7]+'\";color=\"red\"];';
+                                                                                  //contadorNodo++;
+
                                                                                  
 break;
 case 12:
 this.$ = new Objeto($$[$0-7],$$[$0-4],_$[$0-8].first_line, _$[$0-8].first_column,$$[$0-6],[]);
                                                                                         entreg.reporte_gramatical=entreg.reporte_gramatical+"\n OBJ->abre etiqueta LATRIS cierra DATS abre diagonal etiqueta cierra {S = new Objeto(S2,S5,a1.first_line, a1.first_column,S3,[]);}";
+                                                                                  
+                                                                                  
+                                                                                  //GRAFICANDO ETIQUETAS CON CONTENIDO
+                                                                                  //CONTENIDO DE AZUL
+                                                                                  //crear la etiqueta con su numero de contador
+                                                                                  //dotData += contadorNodo+'[label=\"'+$$[$0-4]+'\";color=\"blue\"];';
+                                                                                  //contadorNodo++;
+                                                                                  //HIJOS DE VERDE
+                                                                                  //dotData += contadorNodo+'[label=\"'+$$[$0-7]+'\";color=\"green\"];';
+                                                                                  //let nodoaux = contadorNodo-1;
+                                                                                  //dotData += contadorNodo+'->'+nodoaux+';';
+                                                                                  //contadorNodo++;
+                                                                                 
                                                                                  
 break;
 case 13:
 this.$ = new Objeto($$[$0-3],'',_$[$0-4].first_line, _$[$0-4].first_column,$$[$0-2],[]);
                                                                                         entreg.reporte_gramatical=entreg.reporte_gramatical+"\n OBJ->abre etiqueta LATRIS diagonal cierra {S = new Objeto(S2,'',a1.first_line, a1.first_column,S3,[]);}";
+                                                                                  
+                                                                                  //ETIQUETAS SIN CONTENIDO Y SOLO ATRIBUTOS
+                                                                                  //crear la etiqueta con su numero de contador
+                                                                                  //dotData += contadorNodo+'[label=\"'+$$[$0-3]+'\"];';
+                                                                                  //contadorNodo++;
                                                                                  
 break;
 case 14:
@@ -487,7 +510,7 @@ _handle_error:
 
         //const {entregable}=  require("../Expresiones/entregable");
         //const {Error}=  require("../AST/ErrorA");
-        var entreg= new entregable;
+        var entreg= new entregable;  
     
     //const {Objeto} = require("../Expresiones/Objeto");
     //const {Atributo} = require("../Expresiones/Atributo");
