@@ -4,7 +4,7 @@ const gramatica = require('./Gramatica/gramatica');
 function ejecutarCodigo(entrada:string){
     const objetos = gramatica.parse(entrada);
     objetos.CrearTabla();
-    console.log(objetos[0].valor);
+    console.log(objetos.reporte_gramatical);
     
     //const ast:AST = new AST(instrucciones);
 

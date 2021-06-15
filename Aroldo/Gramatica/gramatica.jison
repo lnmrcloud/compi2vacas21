@@ -85,20 +85,20 @@ BSL                                 "\\".
 
 
 /* Definición de la gramática */
-START : XML_INI EOF                      { 
-                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n START : XML_INI EOF { S = S1; return S; }";
-                                                entreg.arbol=$1;
-                                                entreg.CrearTabla();
+START : XML_INI EOF                      {                                                 
+                                                entreg.arbol=$1;                                                
                                                 $$ = entreg; return $$; 
                                          }
 ;
 
 XML_INI : inicio ATIS fin OBJ            {      $$=$4;
                                                 entreg.confi_xml=$2;
-                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n inicio ATIS fin OBJ entreg.arbol=S4;entreg.confi_xml=S2;S=entreg;}";
+                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n XML_INI->inicio ATIS fin OBJ {entreg.arbol=S4;entreg.confi_xml=S2;S=entreg;}";
+                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n START -> XML_INI EOF { S = S1; return S; }";
                                          }
     |OBJ                                 {      $$ = $1
                                                 entreg.reporte_gramatical=entreg.reporte_gramatical+"\n XML_INI->OBJ {S = S1}";
+                                                entreg.reporte_gramatical=entreg.reporte_gramatical+"\n START -> XML_INI EOF { S = S1; return S; }";
                                          }
     |error                              {      
                                                 var error_sin= new Error('sintactico','Este es un error sintactico: ' + yytext,yylloc.first_line,yylloc.first_column);
