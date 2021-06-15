@@ -50,6 +50,7 @@
                     <br /><br />
                     <input type="button" class="button" value="Limpiar" onclick="javascript:clearConsole();" />
                     <a id="astLink">AST</a>
+                    <a id="tablaLink">Tabla Simbolos</a>
                 </div>  
             </td>
         </tr>
@@ -94,8 +95,17 @@
         //graficar ast
         
         var astAddress = 'https://dreampuf.github.io/GraphvizOnline/#strict digraph{';
+        var tablaAdress = 'https://dreampuf.github.io/GraphvizOnline/#strict digraph{';
         var dotData = '';
-        contadorNodo = 0;
+        var dotTabla = '';
+
+
+        dotTabla += "graph [pad=\"0.5\", nodesep=\"0.5\", ranksep=\"2\"];"
+        dotTabla += "node [shape=plain]";
+        dotTabla += "rankdir=LR;";
+        dotTabla += "TablaSimbolos[label=<";
+        dotTabla += "<table border=\"0\" cellborder=\"1\" cellspacing=\"0\">";
+        dotTabla += "<tr><td>ID</td><td>NOMBRE</td><td>VALOR</td><td>TIPO</td><td>PADRE</td><td>LINEA</td><td>COLUMNA</td></tr>"
 
         lexicalErrors = [];
         syntaxErrors = [];
@@ -104,6 +114,11 @@
         var toParse = document.getElementById("txtXML").value;
         var result = gramatica.parse(toParse);
         result.CrearTabla();
+
+        var contenido = result.graficarTablaSimbolos(contenido);
+        dotTabla = dotTabla + contenido;
+
+
         dotData += result.GraficarAST(dotData);
 
         if (result != null) {
@@ -114,8 +129,13 @@
             //graficar
             astAddress += dotData;
             astAddress += '}';
+            //graficar tabla
+            tablaAdress += dotTabla;
+            tablaAdress += '}';
+            //tablaAdress = encodeURIComponent(tablaAdress);
 
-            getURL(astAddress);
+            getURLAST(astAddress);
+            getURLTABLAS(tablaAdress);
 
 
             analizar_xpath()
@@ -124,9 +144,14 @@
         }
     }
 
-    function getURL(astAddress)
+    function getURLAST(astAddress)
         {
             document.getElementById("astLink").setAttribute("href",astAddress);
+        }
+
+    function getURLTABLAS(tablaAdress)
+        {
+            document.getElementById("tablaLink").setAttribute("href",tablaAdress);
         }
 
     function analizar_xpath() {

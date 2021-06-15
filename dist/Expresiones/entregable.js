@@ -61,9 +61,29 @@ class entregable {
             //return dotData;
         }
     }
+    graficarTablaSimbolos(dotTabla) {
+        dotTabla += this.recorrerTablaS(dotTabla, this.arbol, 0);
+        dotTabla += "</table>>];";
+        return dotTabla;
+    }
+    recorrerTablaS(dotTabla, nodo, contador) {
+        var auxsimbolo = new Simbolo(nodo.identificador, Tipo.OBJETO, nodo.texto, nodo.linea, nodo.columna, contador);
+        for (let i = 0; i < this.tabla_simbolos.num_registro; i++) {
+            auxsimbolo = this.tabla_simbolos.getSimbolo(i);
+            if (auxsimbolo != null && auxsimbolo.getTipo().toString() != '1')
+                dotTabla += "<tr><td>" + i + "</td><td>" + auxsimbolo.getNombre() + "</td><td>" + auxsimbolo.getValor() + "</td><td>" + auxsimbolo.getTipo() + "</td><td>" + auxsimbolo.getPadre() + "</td><td>" + auxsimbolo.linea + "</td><td>" + auxsimbolo.columna + "</td></tr>";
+        }
+        return dotTabla;
+        //var auxsimbolo = new Simbolo(nodo.identificador,Tipo.OBJETO,nodo.texto,nodo.linea,nodo.columna,contador);
+        // auxsimbolo = this.tabla_simbolos.getSimbolo(contador);
+        //if(auxsimbolo!=null)
+        //dotTabla += "<tr><td>"+ contador +"</td><td>"+ auxsimbolo.getNombre() +"</td><td>"+ auxsimbolo.getValor()+"</td><td>"+ auxsimbolo.getTipo()+"</td><td>"+ auxsimbolo.getPadre()+"</td><td>"+ auxsimbolo.linea+"</td><td>"+ auxsimbolo.columna+"</td></tr>"
+        //for (let obj of nodo.listaObjetos){
+        //   var contenido:string= '';
+        //   contenido += this.recorrerTablaS(contenido,obj,contador++);
+        //   dotTabla = dotTabla + contenido;
+        //}
+        //return dotTabla;
+    }
 }
-//crear el nodo hijo, amarrarlo con el padre, incrementar el id numero del hijo
-//dotData += hijo+"[label=\""+ obj.identificador  +"\";color=\"blue\"];";
-// += padre+'->'+hijo+';';
-// hijo++;
 //exports.entregable=entregable;

@@ -14,4 +14,10 @@ class Simbolo {
     getValor() {
         return this.valor;
     }
+    getPadre() {
+        return this.padre;
+    }
+    getNombre() {
+        return this.nombre;
+    }
 }
