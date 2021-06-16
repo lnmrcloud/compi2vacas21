@@ -55,7 +55,7 @@ BSL                                 "\\".
 
 //error lexico
 .                                   {
-                                        console.error('Este es un error léxico: ' + yytext + ', en la linea: ' + yylloc.first_line + ', en la columna: ' + yylloc.first_column);
+                                        
                                         var error_lex= new ErrorA('lexico','Este es un error léxico: ' + yytext,yylloc.first_line,yylloc.first_column);
                                         entreg.tabla_errores.agregar(error_lex);                                        
                                     }
