@@ -49,8 +49,22 @@
                     <textarea id="console"  class="txtarea" name="console" rows="20" cols="100">>></textarea>
                     <br /><br />
                     <input type="button" class="button" value="Limpiar" onclick="javascript:clearConsole();" />
+                </div>  
+            </td>
+        </tr>
+    </table>
+    <h3 class="subtitulo"> REPORTES </h3>
+    <table>
+        <tr>
+            <td>
+                <!-- AREA DE TEXTO PARA REPORTES -->
+                <div id="ide3">
+                    <br>
                     <a id="astLink">AST</a>
+                    <br>
                     <a id="tablaLink">Tabla Simbolos</a>
+                    <br>
+                    <textarea id="textogramatical" class="txtarea" name="txtXML" rows="50" cols="100"></textarea>
                 </div>  
             </td>
         </tr>
@@ -98,6 +112,7 @@
         var tablaAdress = 'https://dreampuf.github.io/GraphvizOnline/#strict digraph{';
         var dotData = '';
         var dotTabla = '';
+        var reportegramaticalxml ='REPORTE GRAMATICAL ASC:\n ';
 
 
         dotTabla += "graph [pad=\"0.5\", nodesep=\"0.5\", ranksep=\"2\"];"
@@ -105,7 +120,7 @@
         dotTabla += "rankdir=LR;";
         dotTabla += "TablaSimbolos[label=<";
         dotTabla += "<table border=\"0\" cellborder=\"1\" cellspacing=\"0\">";
-        dotTabla += "<tr><td>ID</td><td>NOMBRE</td><td>VALOR</td><td>TIPO</td><td>PADRE</td><td>LINEA</td><td>COLUMNA</td></tr>"
+        dotTabla += "<tr style=\"background-color:#069DCD\"><td>ID</td><td>NOMBRE</td><td>VALOR</td><td>TIPO</td><td>PADRE</td><td>LINEA</td><td>COLUMNA</td></tr>"
 
         lexicalErrors = [];
         syntaxErrors = [];
@@ -121,6 +136,8 @@
 
         dotData += result.GraficarAST(dotData);
 
+        reportegramaticalxml += result.reportegramatical(reportegramaticalxml);
+
         if (result != null) {
             document.getElementById("console").innerHTML = "retorne valor";
 
@@ -134,6 +151,7 @@
             tablaAdress += '}';
             //tablaAdress = encodeURIComponent(tablaAdress);
 
+            getURLGramatical(reportegramaticalxml);
             getURLAST(astAddress);
             getURLTABLAS(tablaAdress);
 
@@ -154,6 +172,15 @@
             document.getElementById("tablaLink").setAttribute("href",tablaAdress);
         }
 
+    function getURLGramatical(reportegramaticalxml)
+        {
+            //document.getElementById("textogramatical").setAttribute("href",reportegramaticalxml);
+            document.getElementById("textogramatical").innerHTML = reportegramaticalxml;
+            //console.log(reportegramaticalxml);
+        }
+
+
+        
     function analizar_xpath() {
 
         lexicalErrors = [];

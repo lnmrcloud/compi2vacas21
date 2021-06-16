@@ -85,33 +85,11 @@ class entregable{
         }
 
           return dotTabla;
+    }
 
-
-
-
-        //var auxsimbolo = new Simbolo(nodo.identificador,Tipo.OBJETO,nodo.texto,nodo.linea,nodo.columna,contador);
-       // auxsimbolo = this.tabla_simbolos.getSimbolo(contador);
-
-        //if(auxsimbolo!=null)
-        //dotTabla += "<tr><td>"+ contador +"</td><td>"+ auxsimbolo.getNombre() +"</td><td>"+ auxsimbolo.getValor()+"</td><td>"+ auxsimbolo.getTipo()+"</td><td>"+ auxsimbolo.getPadre()+"</td><td>"+ auxsimbolo.linea+"</td><td>"+ auxsimbolo.columna+"</td></tr>"
-   
-        //for (let obj of nodo.listaObjetos){
-        //   var contenido:string= '';
-        //   contenido += this.recorrerTablaS(contenido,obj,contador++);
-        //   dotTabla = dotTabla + contenido;
-        //}
-
-        //return dotTabla;
-
-
-
-
-
-
-
-
-
-
+    public reportegramatical(reportegramatical:string){
+        reportegramatical = this.reporte_gramatical;
+        return reportegramatical;
     }
 
 }
