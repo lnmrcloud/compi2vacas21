@@ -21,5 +21,11 @@ class Simbolo  {
     getValor():string {
         return this.valor;
     }
+    getPadre():number{
+        return this.padre;
+    }
+    getNombre():string{
+        return this.nombre;
+    }
     
 }

@@ -68,9 +68,44 @@ class entregable{
             //return dotData;
         }
     }
+
+    public graficarTablaSimbolos(dotTabla:string){
+        dotTabla += this.recorrerTablaS(dotTabla,this.arbol,0);
+        dotTabla += "</table>>];"
+        return dotTabla;
+    }
+
+    public recorrerTablaS(dotTabla:string,nodo:Objeto,contador:number){
+        var auxsimbolo = new Simbolo(nodo.identificador,Tipo.OBJETO,nodo.texto,nodo.linea,nodo.columna,contador);
+
+        for (let i = 0; i<this.tabla_simbolos.num_registro; i++) {
+            auxsimbolo = this.tabla_simbolos.getSimbolo(i);
+            if(auxsimbolo!=null && auxsimbolo.getTipo().toString()!='1')
+                dotTabla += "<tr><td>"+ i +"</td><td>"+ auxsimbolo.getNombre() +"</td><td>"+ auxsimbolo.getValor()+"</td><td>"+ auxsimbolo.getTipo()+"</td><td>"+ auxsimbolo.getPadre()+"</td><td>"+ auxsimbolo.linea+"</td><td>"+ auxsimbolo.columna+"</td></tr>"
+        }
+
+          return dotTabla;
+    }
+
+    public reportegramatical(reportegramatical:string){
+        reportegramatical = this.reporte_gramatical;
+        return reportegramatical;
+    }
+
+    public graficarTablaErrores(dotTablaErrores:string){
+       
+        var auxerror = new ErrorA('aux','aux', 0,0);
+        console.log(this.tabla_errores.registros);
+
+        for (let i = 0; i<this.tabla_errores.num_registro; i++) {
+            auxerror = this.tabla_errores.getError(i);
+            console.log(auxerror);
+            if(auxerror!=null){
+                dotTablaErrores += "<tr><td>"+ auxerror.tipo +"</td><td>"+ auxerror.descripcion+"</td><td>"+ auxerror.linea+"</td><td>"+ auxerror.columna+"</td></tr>";
+            }
+        }
+
+        dotTablaErrores += "</table>>];"
+        return dotTablaErrores;
+    }
 }
-               //crear el nodo hijo, amarrarlo con el padre, incrementar el id numero del hijo
-               //dotData += hijo+"[label=\""+ obj.identificador  +"\";color=\"blue\"];";
-               // += padre+'->'+hijo+';';
-              // hijo++;
-//exports.entregable=entregable;

@@ -1,7 +1,7 @@
 class Tabla_errores{
     
     public registros:{[id:number] : ErrorA}={};
-    private num_registro:number=0;
+    public num_registro:number=0;
     
     agregar(errora:ErrorA){                
         this.num_registro=this.num_registro+1;    
@@ -28,7 +28,7 @@ class Tabla_errores{
             }        
         return false;
     }
-    getSimbolo(num_registro:number):any{
+    getError(num_registro:number):any{
         
         
             if (this.registros[num_registro]!==undefined)
