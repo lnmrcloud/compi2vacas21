@@ -79,5 +79,17 @@ class entregable {
         reportegramatical = this.reporte_gramatical;
         return reportegramatical;
     }
+    graficarTablaErrores(dotTablaErrores) {
+        var auxerror = new ErrorA('aux', 'aux', 0, 0);
+        console.log(this.tabla_errores.registros);
+        for (let i = 0; i < this.tabla_errores.num_registro; i++) {
+            auxerror = this.tabla_errores.getError(i);
+            console.log(auxerror);
+            if (auxerror != null) {
+                dotTablaErrores += "<tr><td>" + auxerror.tipo + "</td><td>" + auxerror.descripcion + "</td><td>" + auxerror.linea + "</td><td>" + auxerror.columna + "</td></tr>";
+            }
+        }
+        dotTablaErrores += "</table>>];";
+        return dotTablaErrores;
+    }
 }
-//exports.entregable=entregable;

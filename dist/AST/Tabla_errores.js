@@ -23,7 +23,7 @@ class Tabla_errores {
         }
         return false;
     }
-    getSimbolo(num_registro) {
+    getError(num_registro) {
         if (this.registros[num_registro] !== undefined) {
             return this.registros[num_registro];
         }

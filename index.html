@@ -60,9 +60,11 @@
                 <!-- AREA DE TEXTO PARA REPORTES -->
                 <div id="ide3">
                     <br>
-                    <a id="astLink">AST</a>
+                    <a id="astLink">AST ASC</a>
                     <br>
-                    <a id="tablaLink">Tabla Simbolos</a>
+                    <a id="tablaLink">Tabla Simbolos ASC</a>
+                    <br>
+                    <a id="tablaerror">Tabla Errores ASC</a>
                     <br>
                     <textarea id="textogramatical" class="txtarea" name="txtXML" rows="50" cols="100"></textarea>
                 </div>  
@@ -112,15 +114,27 @@
         var tablaAdress = 'https://dreampuf.github.io/GraphvizOnline/#strict digraph{';
         var dotData = '';
         var dotTabla = '';
+        var dotTablaE = '';
         var reportegramaticalxml ='REPORTE GRAMATICAL ASC:\n ';
+        var TablaErrores = 'https://dreampuf.github.io/GraphvizOnline/#strict digraph{';
 
 
+        //tabla de simbolos
         dotTabla += "graph [pad=\"0.5\", nodesep=\"0.5\", ranksep=\"2\"];"
         dotTabla += "node [shape=plain]";
         dotTabla += "rankdir=LR;";
         dotTabla += "TablaSimbolos[label=<";
         dotTabla += "<table border=\"0\" cellborder=\"1\" cellspacing=\"0\">";
-        dotTabla += "<tr style=\"background-color:#069DCD\"><td>ID</td><td>NOMBRE</td><td>VALOR</td><td>TIPO</td><td>PADRE</td><td>LINEA</td><td>COLUMNA</td></tr>"
+        dotTabla += "<tr style=\"background-color:#069DCD\"><td>ID</td><td>NOMBRE</td><td>VALOR</td><td>TIPO</td><td>PADRE</td><td>LINEA</td><td>COLUMNA</td></tr>";
+
+        dotTablaE += "graph [pad=\"0.5\", nodesep=\"0.5\", ranksep=\"2\"];"
+        dotTablaE += "node [shape=plain]";
+        dotTablaE += "rankdir=LR;";
+        dotTablaE += "TablaErrores[label=<";
+        dotTablaE += "<table border=\"0\" cellborder=\"1\" cellspacing=\"0\">";
+        dotTablaE += "<tr style=\"background-color:#069DCD\"><td>TIPO</td><td>DESCRIPCION</td><td>LINEA</td><td>COLUMNA</td></tr>";
+
+
 
         lexicalErrors = [];
         syntaxErrors = [];
@@ -130,18 +144,21 @@
         var result = gramatica.parse(toParse);
         result.CrearTabla();
 
+        //tabla de simbolos
         var contenido = result.graficarTablaSimbolos(contenido);
         dotTabla = dotTabla + contenido;
 
+        //tabla de errores
+        var contenidoerrores = result.graficarTablaErrores(contenidoerrores);
+        dotTablaE = dotTablaE + contenidoerrores;
 
         dotData += result.GraficarAST(dotData);
-
+            
+        //reporte gramatical
         reportegramaticalxml += result.reportegramatical(reportegramaticalxml);
 
         if (result != null) {
             document.getElementById("console").innerHTML = "retorne valor";
-
-
 
             //graficar
             astAddress += dotData;
@@ -149,12 +166,15 @@
             //graficar tabla
             tablaAdress += dotTabla;
             tablaAdress += '}';
-            //tablaAdress = encodeURIComponent(tablaAdress);
+
+
+            TablaErrores += dotTablaE;
+            TablaErrores += '}';
 
             getURLGramatical(reportegramaticalxml);
             getURLAST(astAddress);
             getURLTABLAS(tablaAdress);
-
+            getURLERRORES(TablaErrores);
 
             analizar_xpath()
         } else {
@@ -177,6 +197,11 @@
             //document.getElementById("textogramatical").setAttribute("href",reportegramaticalxml);
             document.getElementById("textogramatical").innerHTML = reportegramaticalxml;
             //console.log(reportegramaticalxml);
+        }
+
+    function getURLERRORES(tablaError)
+        {
+            document.getElementById("tablaerror").setAttribute("href",tablaError);
         }
 
 
