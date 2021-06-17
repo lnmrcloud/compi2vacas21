@@ -892,7 +892,7 @@ break;
 case 23:/**/
 break;
 case 24:
-                                        console.error('Este es un error léxico: ' + yy_.yytext + ', en la linea: ' + yy_.yylloc.first_line + ', en la columna: ' + yy_.yylloc.first_column);
+                                        
                                         var error_lex= new ErrorA('lexico','Este es un error léxico: ' + yy_.yytext,yy_.yylloc.first_line,yy_.yylloc.first_column);
                                         entreg.tabla_errores.agregar(error_lex);                                        
                                     
