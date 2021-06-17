@@ -139,8 +139,17 @@ case 10:
                                         
 break;
 case 11:
-this.$ = new Objeto($$[$0-7],'',_$[$0-8].first_line, _$[$0-8].first_column,$$[$0-6],$$[$0-4]);
-                                                                                        entreg.reporte_gramatical=entreg.reporte_gramatical+"\n OBJ->abre etiqueta LATRIS cierra OBJS abre diagonal etiqueta cierra {S = new Objeto(S2,'',a1.first_line, a1.first_column,S3,S5);}";
+
+
+                                                                                       if($$[$0-7]!=$$[$0-1])
+                                                                                        {
+                                                                                          
+                                                                                          var error_seman= new ErrorA('semantico','Este es un error semantico: La etiqueta que abre es diferente a la que cierra',$$[$0-8].first_line,$$[$0-8].first_column);
+                                                                                          entreg.tabla_errores.agregar(error_seman); 
+                                                                                        }
+                                                                                       
+                                                                                        this.$ = new Objeto($$[$0-7],'',_$[$0-8].first_line, _$[$0-8].first_column,$$[$0-6],$$[$0-4]);
+                                                                                        entreg.reporte_gramatical=entreg.reporte_gramatical+"\n OBJ->abre etiqueta LATRIS cierra OBJS abre diagonal etiqueta cierra {S = new Objeto(S2,'',a1.first_line, a1.first_column,S3,S5);}";                    
 
                                                                                   //PADRES DE ROJO
                                                                                   //dotData += contadorNodo+'[label=\"'+$$[$0-7]+'\";color=\"red\"];';
@@ -149,9 +158,15 @@ this.$ = new Objeto($$[$0-7],'',_$[$0-8].first_line, _$[$0-8].first_column,$$[$0
                                                                                  
 break;
 case 12:
-this.$ = new Objeto($$[$0-7],$$[$0-4],_$[$0-8].first_line, _$[$0-8].first_column,$$[$0-6],[]);
-                                                                                        entreg.reporte_gramatical=entreg.reporte_gramatical+"\n OBJ->abre etiqueta LATRIS cierra DATS abre diagonal etiqueta cierra {S = new Objeto(S2,S5,a1.first_line, a1.first_column,S3,[]);}";
-                                                                                  
+
+                                                                                        if($$[$0-7]!=$$[$0-1])
+                                                                                        {
+                                                                                          var error_seman= new ErrorA('semantico','Este es un error semantico: la etiqueta que abre es diferente a la que cierra',$$[$0-8].first_line,$$[$0-8].first_column);
+                                                                                          entreg.tabla_errores.agregar(error_seman); 
+                                                                                        }                                                                                        
+                                                                                        this.$ = new Objeto($$[$0-7],$$[$0-4],_$[$0-8].first_line, _$[$0-8].first_column,$$[$0-6],[]);
+                                                                                        entreg.reporte_gramatical=entreg.reporte_gramatical+"\n OBJ->abre etiqueta LATRIS cierra DATS abre diagonal etiqueta cierra {S = new Objeto(S2,S5,a1.first_line, a1.first_column,S3,[]);}";                                                                                                                                                                   
+                                                                                 
                                                                                   
                                                                                   //GRAFICANDO ETIQUETAS CON CONTENIDO
                                                                                   //CONTENIDO DE AZUL
